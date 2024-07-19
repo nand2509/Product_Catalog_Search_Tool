@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black; /* Updated background color */
+            color: white; /* Updated text color */
+        }
+        .container {
+            margin-top: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        table.data {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px; /* Added margin for table */
+        }
+        table.data th, table.data td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table.data th {
+            background-color: #f2f2f2;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4 text-center">Product List</h1>
+        {% if message %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+        {% endif %}
+        <form method="POST" class="mb-4">
+            <div class="form-row">
+                <div class="col-md-6 form-group">
+                    <label for="product_type">Select Product Type:</label>
+                    <select class="form-control" id="product_type" name="product_type">
+                        <option value="">Select...</option>
+                        <option value="tablets">Tablets</option>
+                        <option value="laptops">Laptops</option>
+                        <option value="phones">Phones</option> <!-- Added Phones option -->
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="search">Search for a product:</label>
+                    <input type="text" name="search" class="form-control" id="search" placeholder="Enter product name..." value="{{ search_query }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" name="action" value="search">Search</button>
+            <button type="submit" class="btn btn-secondary ml-2" name="action" value="download">Download CSV</button>
+        </form>
+        <div class="table-responsive">
+            {% for table in tables %}
+                {{ table|safe }}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
